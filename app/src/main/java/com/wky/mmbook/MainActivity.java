@@ -1,12 +1,16 @@
 package com.wky.mmbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -196,7 +200,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         if(view==headerView){
-
+            //头布局被点击了
+            Intent intent = new Intent();
+            intent.setClass(this, MonthChartActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -241,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isShow = true;   //设置标志位为隐藏状态
 
         }
-
     }
+
+
 }
