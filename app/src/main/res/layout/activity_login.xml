@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/grey_f3f3f3">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager1"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/log_cl"/>
+    <LinearLayout
+        android:id="@+id/indicatorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewPager1"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" />
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/indicatorLayout"
+        android:layout_marginTop="16dp"
+        android:text="用户名"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/textViewUsername"
+        android:layout_alignTop="@id/textViewUsername"
+        android:padding="5dp"
+        android:inputType="textPersonName" />
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewUsername"
+        android:layout_marginBottom="8dp"
+        android:text="密    码"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_alignStart="@id/textViewUsername"
+        android:layout_alignBaseline="@id/editTextPassword"
+        android:padding="5dp"/>
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUsername"
+        android:layout_alignStart="@id/editTextUsername"
+        android:layout_alignEnd="@id/editTextUsername"
+        android:layout_marginStart="-2dp"
+        android:inputType="textPassword"
+        android:padding="5dp" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPassword"
+        android:background="@drawable/dialog_btn_bg"
+        android:paddingTop="5dp"
+        android:text="登录" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonLogin"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dialog_btn_bg"
+        android:paddingTop="5dp"
+        android:text="注册" />
+</RelativeLayout>

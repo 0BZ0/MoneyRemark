@@ -21,8 +21,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         insertType(sqLiteDatabase);
         //记账
         sql = "create table accounttb(id integer primary key autoincrement,typename varchar(10),sImageId integer,beizhu varchar(80),money float," +
-                "time varchar(60),year integer,month integer,day integer,kind integer)";
+                "time varchar(60),year integer,month integer,day integer,kind integer/*,FOREIGN KEY (user_id) REFERENCES users(id)*/)";
         sqLiteDatabase.execSQL(sql);
+        //用户
+        String CREATE_USER_TABLE = "CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)";
+        sqLiteDatabase.execSQL(CREATE_USER_TABLE);
+        insertUser(sqLiteDatabase);
     }
 
     private void insertType(SQLiteDatabase sqLiteDatabase) {
@@ -53,6 +57,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sql,new Object[]{"投资回报", R.mipmap.in_touzi,R.mipmap.in_touzi_fs,1});
         sqLiteDatabase.execSQL(sql,new Object[]{"二手交易", R.mipmap.in_ershoushebei,R.mipmap.in_ershoushebei_fs,1});
         sqLiteDatabase.execSQL(sql,new Object[]{"意外所得", R.mipmap.in_yiwai,R.mipmap.in_yiwai_fs,1});
+    }
+    private void insertUser(SQLiteDatabase sqLiteDatabase){
+        String sql = "insert into users (username,password) values (?,?)";
+        sqLiteDatabase.execSQL(sql,new Object[]{"admin","12345678"});
     }
 
     //数据库版本更新

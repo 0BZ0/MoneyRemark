@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+    <TextView
+        android:id="@+id/RG_textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="用  户  名"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/RG_editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/RG_textViewUsername"
+        android:layout_alignTop="@id/RG_textViewUsername"
+        android:padding="5dp"
+        android:inputType="textPersonName" />
+    <TextView
+        android:id="@+id/RG_textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RG_textViewUsername"
+        android:layout_marginBottom="8dp"
+        android:text="  密    码"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_alignStart="@id/RG_textViewUsername"
+        android:layout_alignBaseline="@id/RG_editTextPassword"
+        android:padding="5dp"/>
+
+    <EditText
+        android:id="@+id/RG_editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RG_editTextUsername"
+        android:layout_alignStart="@id/RG_editTextUsername"
+        android:layout_alignEnd="@id/RG_editTextUsername"
+        android:layout_marginStart="-2dp"
+        android:inputType="textPassword"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/RG_textConfirmViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RG_textViewPassword"
+        android:layout_marginBottom="8dp"
+        android:text="确认密码"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_alignStart="@id/RG_textViewUsername"
+        android:layout_alignBaseline="@id/RG_confirmTextPassword"
+        android:padding="5dp"/>
+    <EditText
+        android:id="@+id/RG_confirmTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RG_editTextPassword"
+        android:layout_alignStart="@id/RG_editTextUsername"
+        android:layout_alignEnd="@id/RG_editTextUsername"
+        android:layout_marginStart="-2dp"
+        android:inputType="textPassword"
+        android:padding="5dp" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/RG_buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/RG_confirmTextPassword"
+        android:background="@drawable/dialog_btn_bg"
+        android:layout_marginTop="20dp"
+        android:text="注册" />
+
+</RelativeLayout>

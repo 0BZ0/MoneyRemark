@@ -85,9 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 int pos = i-1;
                 AccountBean clickBean = mDatas.get(pos);
-
-                //删除
-                showDeleteItemDialog(clickBean);
+                //更改为修改
+                showRemarkItemDialog(clickBean);
                 return false;
             }
         });
@@ -95,15 +94,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //是否删除记录
-    private void showDeleteItemDialog(final AccountBean clickBean) {
+    private void showRemarkItemDialog(final AccountBean clickBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("提示信息").setMessage("您确定要删除这条记录么？").
+        builder.setTitle("提示信息").setMessage("您确定要修改这条记录么？").
                 setNegativeButton("取消",null).
                 setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int click_id = clickBean.getId();
-                        DBManager.deleteItemFromAccounttbById(click_id);//删除
+                        //待修改处
+                        DBManager.deleteItemFromAccounttbById(click_id);//修改
+                        //
                         mDatas.remove(clickBean);//移除
                         adapter.notifyDataSetChanged();//更新
                         setTopTvShow();//刷新

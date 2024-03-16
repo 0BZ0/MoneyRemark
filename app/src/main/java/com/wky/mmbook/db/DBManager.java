@@ -249,4 +249,22 @@ public class DBManager {
         }
         return list;
     }
+
+    //用户注册
+    public static void RegisterUser(String username, String password) {
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("password", password);
+        sqLiteDatabase.insert("users", null, values);
+    }
+    //用户验证
+    public static boolean isValidUser(String username, String password) {
+        String[] columns = {"id"};
+        String selection = "username=? AND password=?";
+        String[] selectionArgs = {username, password};
+        Cursor cursor = sqLiteDatabase.query("users", columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
+    }
 }

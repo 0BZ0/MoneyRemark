@@ -31,7 +31,7 @@
     <string name="about_email">发送邮箱</string>
     <string name="about_email2">邮箱为:525210078@qq.com,可以一起学习交流哒</string>
     <string name="about_code">源代码</string>
-    <string name="about_codeinfo">代码托管在github上，地址链接为：\n</string>
+    <string name="about_codeinfo">代码托管在github上，地址链接为：\nhttps://github.com/0BZ0/MoneyRemark</string>
     <string name="about_B">B站地址</string>
     <string name="about_B2">个人Bilibili主页地址为：\nhttps://space.bilibili.com/87116402?spm_id_from=333.1007.0.0</string>
     <string name="chart_info">账单详情</string>
