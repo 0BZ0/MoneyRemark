@@ -36,6 +36,7 @@ public class CalendarDialog extends Dialog implements View.OnClickListener {
     int selectPos = -1;   //表示正在被点击的年份的位置
     private CalendarAdapter adapter;
     int selectMonth = -1;
+    int UserId = UserIDSession.getInstance().getUserId();
     public interface OnRefreshListener{
         public void onRefresh(int selPos,int year,int month);
     }
@@ -94,7 +95,7 @@ public class CalendarDialog extends Dialog implements View.OnClickListener {
 
     private void addViewToLayout() {
         hsvViewList = new ArrayList<>();   //将添加进入线性布局当中的TextView进行统一管理的集合
-        yearList = DBManager.getYearListFromAccounttb(); //获取数据库当中存储了多少个年份
+        yearList = DBManager.getYearListFromAccounttb(UserId); //获取数据库当中存储了多少个年份
         //如果数据库当中没有记录，就添加今年的记录
         if (yearList.size() == 0) {
             int year = Calendar.getInstance().get(Calendar.YEAR);

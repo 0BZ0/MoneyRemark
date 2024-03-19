@@ -2,6 +2,8 @@ package com.wky.mmbook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.wky.mmbook.adapter.AccountAdapter;
 import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
+import com.wky.mmbook.utils.UserIDSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,7 @@ public class SearchActivity extends AppCompatActivity {
     TextView emptyTv;
     List<AccountBean> mDatas;   //数据源
     AccountAdapter adapter;    //适配器对象
+    int UserId = UserIDSession.getInstance().getUserId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +58,8 @@ public class SearchActivity extends AppCompatActivity {
                     return;
                 }
                 //开始搜索
-                List<AccountBean> listBZ = DBManager.getAccountListByRemarkFromAccounttb(msg);
-                List<AccountBean> listTN = DBManager.getAccountListByTypenameFromAccounttb(msg);
+                List<AccountBean> listBZ = DBManager.getAccountListByRemarkFromAccounttb(msg,UserId);
+                List<AccountBean> listTN = DBManager.getAccountListByTypenameFromAccounttb(msg,UserId);
                 mDatas.clear();
                 mDatas.addAll(listBZ);
                 mDatas.addAll(listTN);

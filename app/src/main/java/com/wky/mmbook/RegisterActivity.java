@@ -9,16 +9,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
+import com.wky.mmbook.db.UserBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     EditText rgeditTextUsername, rgeditTextPassword, rgconfirmTextPassword;
     Button rgbuttonRegister;
+    UserBean user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        user =new UserBean();
         initView();
     }
 
@@ -42,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String username = rgeditTextUsername.getText().toString();
         String password = rgeditTextPassword.getText().toString();
         String confirmPassword = rgconfirmTextPassword.getText().toString();
+        user.setPassword(password);
+        user.setUsername(username);
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(RegisterActivity.this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
@@ -55,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         boolean success = DBManager.isValidUser(username, password);
         if (!success) {
             Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-            DBManager.RegisterUser(username,password);
+            DBManager.RegisterUser(user);
             Intent it = new Intent(this, LoginActivity.class);  //跳转界面
             startActivity(it);
             finish(); // 返回登录页面

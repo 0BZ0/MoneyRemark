@@ -43,6 +43,7 @@ public class LoginSliderAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.item_slider, container, false);
         ImageView imageView = view.findViewById(R.id.imageView);
         imageView.setImageResource(images[position]);
+
         container.addView(view);
 
         startAutoScroll();//自动滚动

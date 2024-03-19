@@ -1,5 +1,7 @@
 package com.wky.mmbook.frag_chart;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +19,10 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.wky.mmbook.R;
 import com.wky.mmbook.adapter.ChartItemAdapter;
+import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.ChartItemBean;
 import com.wky.mmbook.db.DBManager;
+import com.wky.mmbook.utils.UserIDSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,9 @@ abstract public class BaseChartFragment extends Fragment {
     private ChartItemAdapter itemAdapter;
     BarChart barChart;     //代表柱状图的控件
     TextView chartTv;     //如果没有收支情况，显示的TextView
+    int UserId = UserIDSession.getInstance().getUserId();
+
+
 
     @Nullable
     @Override
@@ -100,7 +107,7 @@ abstract public class BaseChartFragment extends Fragment {
     }
 
     public void loadData(int year,int month,int kind) {
-        List<ChartItemBean> list = DBManager.getChartListFromAccounttb(year, month, kind);
+        List<ChartItemBean> list = DBManager.getChartListFromAccounttb(year, month, kind,UserId);
         mDatas.clear();
         mDatas.addAll(list);
         itemAdapter.notifyDataSetChanged();

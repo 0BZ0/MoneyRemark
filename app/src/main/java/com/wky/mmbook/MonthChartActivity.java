@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wky.mmbook.adapter.ChartVPAdapter;
+import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.frag_chart.IncomeChartFragment;
 import com.wky.mmbook.frag_chart.OutcomeChartFragment;
 import com.wky.mmbook.utils.CalendarDialog;
+import com.wky.mmbook.utils.UserIDSession;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +35,7 @@ public class MonthChartActivity extends AppCompatActivity {
     private IncomeChartFragment incomeChartFragment;
     private OutcomeChartFragment outcomeChartFragment;
     private ChartVPAdapter chartVPAdapter;
+    int UserId = UserIDSession.getInstance().getUserId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +82,10 @@ public class MonthChartActivity extends AppCompatActivity {
     }
 
     private void initStatistics(int year, int month) {
-        float inMoneyOneMonth = DBManager.getSumMoneyOneMonth(year, month, 1);  //收入总钱数
-        float outMoneyOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0); //支出总钱数
-        int incountItemOneMonth = DBManager.getCountItemOneMonth(year, month, 1);  //收入多少笔
-        int outcountItemOneMonth = DBManager.getCountItemOneMonth(year, month, 0); //支出多少笔
+        float inMoneyOneMonth = DBManager.getSumMoneyOneMonth(year, month, 1,UserId);  //收入总钱数
+        float outMoneyOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0,UserId); //支出总钱数
+        int incountItemOneMonth = DBManager.getCountItemOneMonth(year, month, 1,UserId);  //收入多少笔
+        int outcountItemOneMonth = DBManager.getCountItemOneMonth(year, month, 0,UserId); //支出多少笔
         dateTv.setText(year+"年"+month+"月账单");
         inTv.setText("共"+incountItemOneMonth+"笔收入, ￥ "+inMoneyOneMonth);
         outTv.setText("共"+outcountItemOneMonth+"笔支出, ￥ "+outMoneyOneMonth);

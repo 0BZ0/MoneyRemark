@@ -27,6 +27,7 @@ import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.utils.BudgetDialog;
 import com.wky.mmbook.utils.MoreDialog;
+import com.wky.mmbook.utils.UserIDSession;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,9 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button editBtn;
     ImageButton moreBtn;
     SharedPreferences preferences;
-
-
-
+    int UserId = UserIDSession.getInstance().getUserId();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    //是否删除记录
+    //是否修改记录
     private void showRemarkItemDialog(final AccountBean clickBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示信息").setMessage("您确定要修改这条记录么？").
@@ -149,13 +148,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //头布局文本显示
     private void setTopTvShow() {
         //今日支出
-        float outcomeOneDay = DBManager.getSumMoneyOneDay(year, month, day, 0);
-        float incomeOneDay = DBManager.getSumMoneyOneDay(year, month, day, 1);
+        float outcomeOneDay = DBManager.getSumMoneyOneDay(year, month, day, 0,UserId);
+        float incomeOneDay = DBManager.getSumMoneyOneDay(year, month, day, 1,UserId);
         String infoOneDay = "今日支出 ￥"+outcomeOneDay+" 收入 ￥"+incomeOneDay;
         topConTv.setText(infoOneDay);
         //获取本月收入和支出总金额
-        float incomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 1);
-        float outcomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0);
+        float incomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 1,UserId);
+        float outcomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0,UserId);
         topInTv.setText("￥"+incomeOneMonth);
         topOutTv.setText("￥"+outcomeOneMonth);
         //设置显示预算剩余
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadDBDate() {
-        List<AccountBean> list = DBManager.getAccountListOneDayFromAccounttb(year, month, day);
+        List<AccountBean> list = DBManager.getAccountListOneDayFromAccounttb(year, month, day,UserId);
         mDatas.clear();
         mDatas.addAll(list);
         adapter.notifyDataSetChanged();
@@ -220,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putFloat("bmoney",money);
                 editor.commit();
                 //计算剩余金额
-                float outcomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0);
+                float outcomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0,UserId);
                 float syMoney = money-outcomeOneMonth;//预算剩余 = 预算-支出
                 topbudgetTv.setText("￥"+syMoney);
             }

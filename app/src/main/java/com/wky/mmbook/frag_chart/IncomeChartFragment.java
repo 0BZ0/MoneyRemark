@@ -1,5 +1,7 @@
 package com.wky.mmbook.frag_chart;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.View;
 
@@ -12,6 +14,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.BarChartItemBean;
 import com.wky.mmbook.db.DBManager;
 
@@ -21,17 +24,20 @@ import java.util.List;
 public class IncomeChartFragment extends BaseChartFragment{
     int kind = 1;
 
+
     @Override
     public void onResume() {
         super.onResume();
         loadData(year,month,kind);
     }
 
+
+
     @Override
     protected void setAxisData(int year, int month) {
         List<IBarDataSet> sets = new ArrayList<>();
         //获取这个月每天的支出总金额，
-        List<BarChartItemBean> list = DBManager.getSumMoneyOneDayInMonth(year, month, kind);
+        List<BarChartItemBean> list = DBManager.getSumMoneyOneDayInMonth(year, month, kind,UserId);
         if (list.size() == 0) {
             barChart.setVisibility(View.GONE);
             chartTv.setVisibility(View.VISIBLE);
@@ -71,7 +77,7 @@ public class IncomeChartFragment extends BaseChartFragment{
     @Override
     protected void setYAxis(int year, int month) {
         //获取本月收入最高的一天为多少，将他设定为y轴的最大值
-        float maxMoney = DBManager.getMaxMoneyOneDayInMonth(year, month, kind);
+        float maxMoney = DBManager.getMaxMoneyOneDayInMonth(year, month, kind,UserId);
         float max = (float) Math.ceil(maxMoney);   // 将最大金额向上取整
         //设置y轴
         YAxis yAxis_right = barChart.getAxisRight();

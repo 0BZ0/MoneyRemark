@@ -12,6 +12,15 @@ public class AccountBean {
     int month;
     int day;
     int kind;//收入1 支出0
+    int UserId;//用户ID
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
+    }
 
     public int getId() {
         return id;
@@ -93,10 +102,7 @@ public class AccountBean {
         this.kind = kind;
     }
 
-    public AccountBean() {
-    }
-
-    public AccountBean(int id, String typename, int sImageId, String beizhu, float money, String time, int year, int month, int day, int kind) {
+    public AccountBean(int id, String typename, int sImageId, String beizhu, float money, String time, int year, int month, int day, int kind, int userId) {
         this.id = id;
         this.typename = typename;
         this.sImageId = sImageId;
@@ -107,5 +113,9 @@ public class AccountBean {
         this.month = month;
         this.day = day;
         this.kind = kind;
+        UserId = userId;
+    }
+
+    public AccountBean() {
     }
 }

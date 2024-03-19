@@ -29,7 +29,7 @@ public class IncomeFragment extends BaseRecordFragment {
     @Override
     public void saveAccountToDB() {
         accountBean.setKind(1);
-        DBManager.insertItemToAccounttb(accountBean);
+        DBManager.insertItemToAccounttb(accountBean,userBean);
 
     }
 }

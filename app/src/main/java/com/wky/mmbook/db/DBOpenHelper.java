@@ -19,14 +19,14 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         String sql = "create table typetb(id integer primary key autoincrement,typename varchar(10),imageId integer,sImageId integer,kind integer)";
         sqLiteDatabase.execSQL(sql);
         insertType(sqLiteDatabase);
-        //记账
-        sql = "create table accounttb(id integer primary key autoincrement,typename varchar(10),sImageId integer,beizhu varchar(80),money float," +
-                "time varchar(60),year integer,month integer,day integer,kind integer/*,FOREIGN KEY (user_id) REFERENCES users(id)*/)";
-        sqLiteDatabase.execSQL(sql);
         //用户
         String CREATE_USER_TABLE = "CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)";
         sqLiteDatabase.execSQL(CREATE_USER_TABLE);
         insertUser(sqLiteDatabase);
+        //记账
+        sql = "create table accounttb(id integer primary key autoincrement,typename varchar(10),sImageId integer,beizhu varchar(80),money float," +
+                "time varchar(60),year integer,month integer,day integer,kind integer,UserId INTEGER, FOREIGN KEY (UserId) REFERENCES users(id))";
+        sqLiteDatabase.execSQL(sql);
     }
 
     private void insertType(SQLiteDatabase sqLiteDatabase) {

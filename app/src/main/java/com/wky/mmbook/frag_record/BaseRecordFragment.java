@@ -21,6 +21,7 @@ import com.wky.mmbook.R;
 import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.db.TypeBean;
+import com.wky.mmbook.db.UserBean;
 import com.wky.mmbook.utils.BeiZhuDialog;
 import com.wky.mmbook.utils.KeyBoardUtils;
 import com.wky.mmbook.utils.SelectTimeDialog;
@@ -39,6 +40,8 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
     List<TypeBean> typeList;
     TypeBaseAdapter adapter;
     AccountBean accountBean;
+    UserBean userBean;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

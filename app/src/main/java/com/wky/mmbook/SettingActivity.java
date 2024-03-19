@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.wky.mmbook.db.DBManager;
+import com.wky.mmbook.utils.UserIDSession;
 
 public class SettingActivity extends AppCompatActivity {
+    int UserId = UserIDSession.getInstance().getUserId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class SettingActivity extends AppCompatActivity {
                 setNegativeButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DBManager.deleteAllAccount();
+                        DBManager.deleteAllAccount(UserId);
                         Toast.makeText(SettingActivity.this,"删除成功！",Toast.LENGTH_SHORT).show();
                     }
                 });
