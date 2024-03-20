@@ -1,16 +1,12 @@
 package com.wky.mmbook;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -27,7 +23,7 @@ import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.utils.BudgetDialog;
 import com.wky.mmbook.utils.MoreDialog;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button editBtn;
     ImageButton moreBtn;
     SharedPreferences preferences;
-    int UserId = UserIDSession.getInstance().getUserId();
+    int UserId = IDSession.getInstance().getUserId();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,12 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int click_id = clickBean.getId();
-                        //待修改处
-                        DBManager.deleteItemFromAccounttbById(click_id);//修改
-                        //
-                        mDatas.remove(clickBean);//移除
-                        adapter.notifyDataSetChanged();//更新
-                        setTopTvShow();//刷新
+                        IDSession.getInstance().setAccId(click_id);
+                        Intent it1 = new Intent(MainActivity.this, reRecordActivity.class);//连接多个页面
+                        startActivity(it1);
                     }
                 });
         builder.create().show();

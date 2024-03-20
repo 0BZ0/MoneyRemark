@@ -36,7 +36,7 @@ public class CalendarDialog extends Dialog implements View.OnClickListener {
     int selectPos = -1;   //表示正在被点击的年份的位置
     private CalendarAdapter adapter;
     int selectMonth = -1;
-    int UserId = UserIDSession.getInstance().getUserId();
+    int UserId = IDSession.getInstance().getUserId();
     public interface OnRefreshListener{
         public void onRefresh(int selPos,int year,int month);
     }

@@ -1,7 +1,5 @@
 package com.wky.mmbook.frag_chart;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.wky.mmbook.R;
 import com.wky.mmbook.adapter.ChartItemAdapter;
-import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.ChartItemBean;
 import com.wky.mmbook.db.DBManager;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +30,7 @@ abstract public class BaseChartFragment extends Fragment {
     private ChartItemAdapter itemAdapter;
     BarChart barChart;     //代表柱状图的控件
     TextView chartTv;     //如果没有收支情况，显示的TextView
-    int UserId = UserIDSession.getInstance().getUserId();
+    int UserId = IDSession.getInstance().getUserId();
 
 
 

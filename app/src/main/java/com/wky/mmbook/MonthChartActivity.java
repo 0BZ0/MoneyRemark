@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wky.mmbook.adapter.ChartVPAdapter;
-import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.frag_chart.IncomeChartFragment;
 import com.wky.mmbook.frag_chart.OutcomeChartFragment;
 import com.wky.mmbook.utils.CalendarDialog;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +32,7 @@ public class MonthChartActivity extends AppCompatActivity {
     private IncomeChartFragment incomeChartFragment;
     private OutcomeChartFragment outcomeChartFragment;
     private ChartVPAdapter chartVPAdapter;
-    int UserId = UserIDSession.getInstance().getUserId();
+    int UserId = IDSession.getInstance().getUserId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -4,10 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.wky.mmbook.utils.FloatUtils;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,10 +52,29 @@ public class DBManager {
         values.put("month",bean.getMonth());
         values.put("day",bean.getDay());
         values.put("kind",bean.getKind());
-        values.put("UserId", UserIDSession.getInstance().getUserId());
+        values.put("UserId", IDSession.getInstance().getUserId());
         sqLiteDatabase.insert("accounttb",null,values);
 
     }
+    //修改数据库单条数据
+    public static void updateItemInAccounttb(AccountBean bean) {
+        // 创建 ContentValues 对象，用于存储需要更新的数据
+        ContentValues values = new ContentValues();
+        values.put("typename", bean.getTypename());
+        values.put("sImageId", bean.getsImageId());
+        values.put("beizhu", bean.getBeizhu());
+        values.put("money", bean.getMoney());
+        values.put("time", bean.getTime());
+        values.put("year", bean.getYear());
+        values.put("month", bean.getMonth());
+        values.put("day", bean.getDay());
+        values.put("kind", bean.getKind());
+        values.put("UserId", bean.getUserId());
+
+        // 根据 ID 执行更新操作
+        sqLiteDatabase.update("accounttb", values, "id=?", new String[]{String.valueOf(bean.getId())});
+    }
+
     //获取记账数据库单日内容
     public static List<AccountBean>getAccountListOneDayFromAccounttb(int year,int month,int day,int UserId){
         List<AccountBean>list = new ArrayList<>();
@@ -150,22 +168,41 @@ public class DBManager {
         cursor.close();
         return total;
     }
-    //根据id修改
-    public static void updateItemInAccounttb(AccountBean bean) {
-        ContentValues values = new ContentValues();
-        values.put("typename", bean.getTypename());
-        values.put("sImageId", bean.getsImageId());
-        values.put("beizhu", bean.getBeizhu());
-        values.put("money", bean.getMoney());
-        values.put("time", bean.getTime());
-        values.put("year", bean.getYear());
-        values.put("month", bean.getMonth());
-        values.put("day", bean.getDay());
-        values.put("kind", bean.getKind());
-        String selection = "id = ?"; // 根据 id 来确定要更新的行
-        String[] selectionArgs = {String.valueOf(bean.getId())};
-        sqLiteDatabase.update("accounttb", values, selection, selectionArgs);
+    //根据id查找
+    public static AccountBean getItemFromAccounttbById(int id) {
+        Cursor cursor = null;
+        try {
+            String sql = "SELECT * FROM accounttb WHERE id = ?";
+            String[] selectionArgs = {String.valueOf(id)};
+            cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
+            if (cursor != null && cursor.moveToFirst()) {
+                // 从Cursor中读取数据并创建AccountBean对象
+                int itemId = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+                String typename = cursor.getString(cursor.getColumnIndexOrThrow("typename"));
+                int sImageId = cursor.getInt(cursor.getColumnIndexOrThrow("sImageId"));
+                String beizhu = cursor.getString(cursor.getColumnIndexOrThrow("beizhu"));
+                float money = cursor.getFloat(cursor.getColumnIndexOrThrow("money"));
+                String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
+                int year = cursor.getInt(cursor.getColumnIndexOrThrow("year"));
+                int month = cursor.getInt(cursor.getColumnIndexOrThrow("month"));
+                int day = cursor.getInt(cursor.getColumnIndexOrThrow("day"));
+                int kind = cursor.getInt(cursor.getColumnIndexOrThrow("kind"));
+                int userId = cursor.getInt(cursor.getColumnIndexOrThrow("UserId"));
+                // 根据需要创建AccountBean对象
+                AccountBean accountBean = new AccountBean(itemId, typename, sImageId, beizhu, money, time, year, month, day, kind, userId);
+                return accountBean;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return null; // 没有找到对应id的数据
     }
+
+
 
     //根据id删除
     public static int deleteItemFromAccounttbById(int id){

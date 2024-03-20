@@ -3,9 +3,7 @@ package com.wky.mmbook;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 
 import com.wky.mmbook.adapter.LoginSliderAdapter;
 import com.wky.mmbook.db.DBManager;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     ViewPager viewPager;
@@ -72,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         boolean Valid = DBManager.isValidUser(username, password);
         if (Valid) {
             LoginId = DBManager.getUserId(username,password);
-            UserIDSession.getInstance().setUserId(LoginId);
+            IDSession.getInstance().setUserId(LoginId);
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             Intent MainIt = new Intent(this, MainActivity.class);  //跳转界面
             startActivity(MainIt);

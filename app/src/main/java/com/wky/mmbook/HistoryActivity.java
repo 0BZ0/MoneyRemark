@@ -3,9 +3,7 @@ package com.wky.mmbook;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +14,7 @@ import com.wky.mmbook.adapter.AccountAdapter;
 import com.wky.mmbook.db.AccountBean;
 import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.utils.CalendarDialog;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +29,7 @@ public class HistoryActivity extends AppCompatActivity {
     int year,month;
     int dialogSelPos = -1;
     int dialogSelMonth = -1;
-    int UserId = UserIDSession.getInstance().getUserId();
+    int UserId = IDSession.getInstance().getUserId();
 
 
 

@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.wky.mmbook.db.DBManager;
-import com.wky.mmbook.utils.UserIDSession;
+import com.wky.mmbook.utils.IDSession;
 
 public class SettingActivity extends AppCompatActivity {
-    int UserId = UserIDSession.getInstance().getUserId();
+    int UserId = IDSession.getInstance().getUserId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,23 @@ public class SettingActivity extends AppCompatActivity {
                 break;
             case R.id.setting_tv_auto:
                 //自动记录更新
+                showAutoDialog();
                 break;
         }
+    }
+
+    private void showAutoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示")
+                .setMessage("您确定要开启自动记账么？").
+                setPositiveButton("取消",null).
+                setNegativeButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //待编写
+                    }
+                });
+        builder.create().show();
     }
 
     private void showDeleteDialog() {

@@ -23,6 +23,7 @@ import com.wky.mmbook.db.DBManager;
 import com.wky.mmbook.db.TypeBean;
 import com.wky.mmbook.db.UserBean;
 import com.wky.mmbook.utils.BeiZhuDialog;
+import com.wky.mmbook.utils.IDSession;
 import com.wky.mmbook.utils.KeyBoardUtils;
 import com.wky.mmbook.utils.SelectTimeDialog;
 
@@ -41,6 +42,8 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
     TypeBaseAdapter adapter;
     AccountBean accountBean;
     UserBean userBean;
+    int AccId =IDSession.getInstance().getAccId();
+
 
 
     @Override
@@ -61,8 +64,20 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
         loadDataToGV();
         setGVListener();
         setInitTime();
-
         return view;
+    }
+    public void setAccountBean(int id) {
+        // 根据id查询数据库，获取对应的AccountBean对象
+        accountBean = DBManager.getItemFromAccounttbById(id);
+        if (accountBean != null) {
+            // 设置界面显示
+            moneyEt.setText(String.valueOf(accountBean.getMoney()));
+            typeTv.setText(accountBean.getTypename());
+            int sImageId = accountBean.getsImageId();
+            typeIv.setImageResource(sImageId);
+            beizhuTv.setText(accountBean.getBeizhu());
+            timeTv.setText(accountBean.getTime());
+        }
     }
 //获取时间
     private void setInitTime() {
@@ -187,6 +202,5 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
 
             }
         });
-
     }
 }
